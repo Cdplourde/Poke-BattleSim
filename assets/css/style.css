@@ -1,0 +1,40 @@
+img {
+    width: 220px;
+    height: 150px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.characters {
+    display: inline-block;
+    margin: 0px 7px 0px 7px;
+    background-color: white;
+    width: 240px;
+    height: 170px;
+    padding-bottom: 15px;
+}
+
+.container {
+    text-align: center;
+}
+
+body {
+    background-image: url("../images/background.jpg");
+}
+
+h1, h2 {
+    color: white;
+}
+
+.pokeList {
+    display: inline-block;
+}
+
+.characters ul {
+    background-color: inherit;
+    display: flex;
+    justify-content: space-around;
+}
