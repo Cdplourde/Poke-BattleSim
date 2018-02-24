@@ -3,30 +3,48 @@ img {
     height: 150px;
 }
 
-ul {
+ul, charList {
     list-style: none;
     padding-left: 0;
 }
 
 .characters {
+    position: relative;
     display: inline-block;
-    margin: 0px 7px 0px 7px;
+    margin: 14px 7px 0px 7px;
     background-color: white;
     width: 240px;
     height: 170px;
     padding-bottom: 15px;
+    text-align: center;
+    border: solid 2px black;
 }
 
 .container {
     text-align: center;
+    min-width: 1063px;
+    margin: 0px auto;
+}
+
+#battle {
+    margin: 0px auto;
+    text-align: center;
+    width: 1000px;
 }
 
 body {
     background-image: url("../images/background.jpg");
+    font-size: 1.1em;
 }
 
 h1, h2 {
     color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+h2 {
+    margin-top: 55px;
+    margin-bottom: 10px;
 }
 
 .pokeList {
@@ -35,6 +53,56 @@ h1, h2 {
 
 .characters ul {
     background-color: inherit;
+    position: relative;
+    right: 2px;
     display: flex;
     justify-content: space-around;
+    margin-top: 0px;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    width: inherit;
+
+}
+
+#trainer {
+    color: yellow;
+}
+
+#vs {
+    color: white;
+    display: inline-block;
+    font-size: 2.5em;
+    padding-top: 20px;
+}
+
+#player {
+    color: yellow;
+    position: absolute;
+    top: -30px;
+    right: 39%;
+}
+
+#opponent {
+    color: #e51640;
+    position: absolute;
+    top: -30px;
+    right: 34%;
+}
+
+#buttonHolder {
+    margin: 0 auto;
+    width: 220px;
+}
+
+#battleButton {
+    float: left;
+    width: 100px;
+    height: 25px;
+}
+
+#resetButton {
+    float: right;
+    width: 100px;
+    height: 25px;
 }
