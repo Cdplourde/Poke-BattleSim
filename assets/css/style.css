@@ -43,8 +43,8 @@ h1, h2 {
 }
 
 h2 {
-    margin-top: 55px;
-    margin-bottom: 10px;
+    margin: 55px auto 10px auto;
+    text-align: center;
 }
 
 .pokeList {
@@ -102,7 +102,7 @@ h2 {
 
 #buttonHolder {
     margin: 0 auto;
-    width: 225px;
+    width: 320px;
     text-align: center;
 }
 
@@ -116,14 +116,22 @@ button {
     float: left;
 }
 
-#resetButton, #switch {
+#resetButton {
     float: right;
+}
+
+#switch {
+    float: left;
+    position: relative;
+    left: 10px;
 } 
 
 #giveUp {
-    margin-top: 20px;
-    float: right;
-}
+    float: left;
+    position: relative;
+    left: 20px;
+} 
+
 
 #buttonHolder ~ div {
     width: 225px;
