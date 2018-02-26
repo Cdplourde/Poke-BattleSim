@@ -92,21 +92,42 @@ h2 {
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
+#playerPoke {
+    color: yellow;
+}
+
+#compPoke {
+    color: #e51640;
+}
+
 #buttonHolder {
     margin: 0 auto;
-    width: 220px;
+    width: 225px;
+    text-align: center;
 }
 
-#battleButton {
+button {
+    width: 100px;
+    height: 45px;   
+    font-size: 0.9em; 
+}
+
+#battleButton, #attack {
     float: left;
-    width: 100px;
-    height: 25px;
 }
 
-#resetButton {
+#resetButton, #switch {
     float: right;
-    width: 100px;
-    height: 25px;
+} 
+
+#giveUp {
+    margin-top: 20px;
+    float: right;
+}
+
+#buttonHolder ~ div {
+    width: 225px;
+    margin: 0 auto;
 }
 
 .battleArena {
@@ -119,7 +140,7 @@ h2 {
 #playerPokeImg, #computerImg {
     margin-top: 85px;
     background-color: white;
-    width: 200px;
+    width: 175px;
     height: 150px;
     border: 2px solid black;
     padding: 10px;
@@ -151,4 +172,10 @@ h2 {
     bottom: 500px;
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#navigation {
+    margin-top: 380px;
+    color: white;
+    position: relative;
 }
