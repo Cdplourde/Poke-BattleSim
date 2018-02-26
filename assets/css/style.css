@@ -132,6 +132,17 @@ button {
     left: 20px;
 } 
 
+.middleBtn {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#loseBtn {
+    position: relative;
+    top: 55px;
+    right: 190px;
+}
+
 
 #buttonHolder ~ div {
     width: 225px;
@@ -147,7 +158,6 @@ button {
 
 img {
     -webkit-user-drag: none;
-    user-select: none;
 }
 
 #playerPokeImg, #computerImg {

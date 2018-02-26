@@ -298,7 +298,7 @@ function opponentAttack() {
         if (activePlayerPoke.hp <= 0) {
             setTimeout(function () {
                 activeFaint();
-            });
+            }, 4000);
         } else {
             setTimeout(function () {
                 $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
@@ -321,7 +321,7 @@ function opponentAttack() {
         if (activePlayerPoke.hp <= 0) {
             setTimeout(function () {
                 activeFaint();
-            });
+            }, 4000);
         } else {
             setTimeout(function () {
                 $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
@@ -335,13 +335,11 @@ function opponentAttack() {
 }
 
 function activeFaint() {
+    disableButtons();
+    $('h2').html('<span id="playerPoke">' + activePlayerPoke.name + '</span> fainted!');
     setTimeout(function () {
-        $('h2').html('<span id="playerPoke">' + activePlayerPoke.name + '</span> fainted!')
-    }, 4000);
-    setTimeout(function () {
-        enableButtons();
-        changePokemon();
-    }, 6000);
+        changePokemon(activePlayerPoke.hp);
+    }, 2000);
 }
 
 function compFaint() {
@@ -365,16 +363,28 @@ function compFaint() {
 
 }
 
-function changePokemon() {
-    $('h2').html('What Pokemon will battle next?');
-    setTimeout(function () {
+function changePokemon(active) {
+    if ((playerPoke1.hp != 0) || (playerPoke2.hp != 0) || (playerPoke3.hp != 0)) {
+        $('h2').html('What Pokémon will battle next?');
         $('#attack').remove();
         $('#switch').remove();
         $('#giveUp').remove();
-        $('#buttonHolder').append('<button>' + playerPoke1.name + '</button>');
-        $('#buttonHolder').append('<button>' + playerPoke2.name + '</button>');
-        $('#buttonHolder').append('<button>' + playerPoke3.name + '</button>');
-    }, 200);
+        $('#buttonHolder').append('<button id="' + playerPoke1.name + '">' + playerPoke1.name + '</button>');
+        $('#buttonHolder').append('<button class="middleBtn" id="' + playerPoke2.name + '">' + playerPoke2.name + '</button>');
+        $('#buttonHolder').append('<button id="' + playerPoke3.name + '">' + playerPoke3.name + '</button>');
+        //if pokemon fainted, disable button
+        if (active <= 0) {
+            $('#' + activePlayerPoke.name).attr('disabled', true);
+        }
+    } else {
+        $('h2').html(player.name + ' is out of usable Pokémon!');
+        setTimeout(function () {
+            $('h2').html(player.name + ' whited out!');
+        }, 2000);
+        setTimeout(function () {
+            $('#buttonHolder').after('<button id="loseBtn">Play Again?</button>');
+        }, 2000);
+    }
 }
 
 function disableButtons() {
@@ -503,7 +513,7 @@ $('document').ready(function () {
             setOppActivePoke();
             $('#buttonHolder').before('<h2 id="navigation">What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?</h2');
             $('#buttonHolder').append('<button id="attack">Attack</button>');
-            $('#buttonHolder').append('<button id="switch">Change Pokemon</button>');
+            $('#buttonHolder').append('<button id="switch">Change Pokémon</button>');
             $('#buttonHolder').append('<button id="giveUp">Run</button>');
 
         }, 300);
