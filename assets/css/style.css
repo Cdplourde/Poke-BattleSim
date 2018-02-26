@@ -122,24 +122,25 @@ h2 {
     width: 200px;
     height: 150px;
     border: 2px solid black;
+    padding: 10px;
 }
 
 #playerPokeImg {
     position: relative;
     left: 250px;
-    bottom: 257px;
+    bottom: 277px;
 }
 
 #computerImg {
     position: relative;
     right: 250px;
-    bottom: 257px;
+    bottom: 277px;
 }
 
 #playerhp {
     position: relative;
     left: 250px;
-    bottom: 460px;
+    bottom: 500px;
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
@@ -147,7 +148,7 @@ h2 {
 #computerhp {
     position: relative;
     right: 250px;
-    bottom: 460px;
+    bottom: 500px;
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
