@@ -145,6 +145,11 @@ button {
     margin-top: 100px;
 }
 
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
 #playerPokeImg, #computerImg {
     margin-top: 85px;
     background-color: white;

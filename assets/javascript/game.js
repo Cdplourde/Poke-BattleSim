@@ -395,15 +395,16 @@ function enableButtons() {
 
 $('document').ready(function () {
     var containerClone = $('.container')[0].outerHTML;
+    //♪♫♬♪♫♬
     var audio = new Audio('assets/audio/battle.mp3');
     audio.volume = 0.2;
     audio.play();
 
+    //character card hover effects
     $(document).on('mouseenter', '.characters', hoverOnCSS)
     $(document).on('mouseleave', '.characters', hoverOffCSS)
-    // $('.characters').hover(hoverOnCSS, hoverOffCSS);
 
-    //user character choices
+    //user selects character
     $(document).on('click', '.characters', function () {
         // if (first choice) 
         if (numChoice === 0) {
@@ -425,6 +426,8 @@ $('document').ready(function () {
             opponent = $(this).data('name');
             $('#buttonHolder').append('<button id=\'battleButton\'>Let\'s Battle!</button>');
             $('#buttonHolder').append('<button id=\'resetButton\'>Choose Again</button>');
+            $('#resetButton, #battleButton').css('opacity', '100');
+            $('#buttonHolder').css('opacity', '100');
             numChoice++
         } else {}
     })
@@ -436,7 +439,7 @@ $('document').ready(function () {
     $(document).on('click', '#battleButton', function () {
         //disable button so it cannot be clicked while fading out
         $('#battleButton').prop('disabled', true);
-        //fade out elements
+        //fade out all displayed elements
         $('.characters').animate({
             opacity: '0'
         }, 300);
@@ -449,7 +452,7 @@ $('document').ready(function () {
         $('h1').animate({
             opacity: '0'
         }, 300);
-        //run after fade out
+        //after fade out
         setTimeout(function () {
             // remove .characters, h2, and buttons after animation finishes. 
             $('.characters').remove();
@@ -547,7 +550,6 @@ $('document').ready(function () {
                 compPoke2.hp = 100;
                 compPoke3.hp = 100;
                 //remove created elements
-                $('div:last-of-type').remove();
                 $('.battleArena').remove();
                 $('#attack').remove();
                 $('#giveUp').remove();
