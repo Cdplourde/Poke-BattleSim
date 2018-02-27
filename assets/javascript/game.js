@@ -108,7 +108,7 @@ var player = trainer[0];
 var opponent = trainer[1];
 //♪♫♬♪♫♬
 var audio = new Audio('assets/audio/battle.mp3');
-var win = new Audio('http://66.90.93.122/ost/pokemon-gameboy-sound-collection/uamgcooh/116-victory%20%28vs%20trainer%29.mp3');
+var win = new Audio('assets/audio/victory.mp3');
 var playing = true;
 audio.volume = 0.2;
 win.volume = 0.7;
