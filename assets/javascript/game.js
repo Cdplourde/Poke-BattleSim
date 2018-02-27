@@ -425,8 +425,21 @@ $('document').ready(function () {
     var containerClone = $('.container')[0].outerHTML;
     //♪♫♬♪♫♬
     var audio = new Audio('assets/audio/battle.mp3');
+    var playing = true;
     audio.volume = 0.2;
     audio.play();
+
+    //toggle audio
+    $(document).on('click', '#volume', function() {
+        if (playing === true) {
+            audio.pause();
+            playing = false;
+        }
+        else {
+            audio.play();
+            playing = true;
+        }
+    });
 
     //character card hover effects
     $(document).on('mouseenter', '.characters', hoverOnCSS)
