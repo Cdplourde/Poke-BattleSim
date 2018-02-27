@@ -112,6 +112,13 @@ button {
     font-size: 0.9em; 
 }
 
+#cancel {
+    position: relative;
+    top: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
 #battleButton, #attack {
     float: left;
 }
@@ -143,11 +150,16 @@ button {
     right: 190px;
 }
 
-#confirm {
+#confirm, #confirmDead {
     position: relative;
-    top: 10px;
+    top: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
+.activated {
+    background-color: yellow;
+}
 
 #buttonHolder ~ div {
     width: 225px;
