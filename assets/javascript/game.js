@@ -104,7 +104,7 @@ var trainer = [
     }
 ]
 //default players
-var player = trainer[0]; 
+var player = trainer[0];
 var opponent = trainer[1];
 //♪♫♬♪♫♬
 var audio = new Audio('assets/audio/battle.mp3');
@@ -114,15 +114,15 @@ audio.volume = 0.2;
 win.volume = 0.7;
 
 $('document').ready(function () {
-var containerClone = $('.container')[0].outerHTML;
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    var containerClone = $('.container')[0].outerHTML;
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //resets game
     function reset() {
         audio.currentTime = 0;
-        win.currentTime = 0;    
+        win.currentTime = 0;
         audio.play();
         win.pause();
         //fade out current elements       
@@ -147,7 +147,7 @@ var containerClone = $('.container')[0].outerHTML;
             $('#playAgain').remove();
             //place back original elements
             $('.container').replaceWith(containerClone);
-            setTimeout(function() {
+            setTimeout(function () {
                 $('body').animate({
                     opacity: '100'
                 });
@@ -242,7 +242,7 @@ var containerClone = $('.container')[0].outerHTML;
     }
 
     function playerAttack() {
-        var origHP = activeOpponentPoke.hp;   
+        var origHP = activeOpponentPoke.hp;
         // not very effective
         if ((activePlayerPoke.type === activeOpponentPoke.type) ||
             (activePlayerPoke.type === 'fire' && activeOpponentPoke.type === 'water') ||
@@ -259,7 +259,7 @@ var containerClone = $('.container')[0].outerHTML;
                 setTimeout(function () {
                     compFaint();
                 }, 4000);
-                setTimeout(function() {
+                setTimeout(function () {
                     $('.damageTaken').remove();
                     $('#computerhp').html('HP: ' + activeOpponentPoke.hp);
                 }, 6050);
@@ -267,7 +267,7 @@ var containerClone = $('.container')[0].outerHTML;
                 setTimeout(function () {
                     opponentAttack();
                 }, 4000);
-                setTimeout(function() {
+                setTimeout(function () {
                     $('.damageTaken').remove();
                     $('#computerhp').html('HP: ' + activeOpponentPoke.hp);
                 }, 8050);
@@ -288,7 +288,7 @@ var containerClone = $('.container')[0].outerHTML;
                 setTimeout(function () {
                     compFaint();
                 }, 4000);
-                setTimeout(function() {
+                setTimeout(function () {
                     $('.damageTaken').remove();
                     $('#computerhp').html('HP: ' + activeOpponentPoke.hp);
                 }, 6050);
@@ -296,7 +296,7 @@ var containerClone = $('.container')[0].outerHTML;
                 setTimeout(function () {
                     opponentAttack();
                 }, 4000);
-                setTimeout(function() {
+                setTimeout(function () {
                     $('.damageTaken').remove();
                     $('#computerhp').html('HP: ' + activeOpponentPoke.hp);
                 }, 8050);
@@ -307,6 +307,7 @@ var containerClone = $('.container')[0].outerHTML;
         $('#computerhp').html('HP: ' + activeOpponentPoke.hp + '<span class="damageTaken" style="color: #e51640"> (-' + (origHP - activeOpponentPoke.hp) + ')');
     }
 
+    //opponent counterattack
     function opponentAttack() {
         var origHP = activePlayerPoke.hp;
         // not very effective
@@ -330,6 +331,7 @@ var containerClone = $('.container')[0].outerHTML;
                 setTimeout(function () {
                     activeFaint();
                 }, 4000);
+                //if not fainted
             } else {
                 setTimeout(function () {
                     $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
@@ -358,7 +360,7 @@ var containerClone = $('.container')[0].outerHTML;
                 setTimeout(function () {
                     activeFaint();
                 }, 4000);
-            //if not fainted, continue with battle
+                //if not fainted, continue with battle
             } else {
                 setTimeout(function () {
                     $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
@@ -384,7 +386,7 @@ var containerClone = $('.container')[0].outerHTML;
     // checks for win conditon then chooses a random pokemon to send out next
     function compFaint() {
         activeOpponentPoke.hp = 0;
-            $('h2').html('<span id="compPoke">' + activeOpponentPoke.name + '</span> fainted!');
+        $('h2').html('<span id="compPoke">' + activeOpponentPoke.name + '</span> fainted!');
         setTimeout(function () {
             //send out new random pokemon
             if (alivePokemon.length != 1) {
@@ -395,17 +397,17 @@ var containerClone = $('.container')[0].outerHTML;
                     $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
                     enableButtons();
                 }, 2000);
-            //win condition
+                //win condition
             } else {
                 audio.currentTime = 0;
-                win.currentTime = 0;    
+                win.currentTime = 0;
                 audio.pause();
                 win.play();
                 $('h2').html('<span id="compPoke">' + opponent.name + '</span> is all out of pokémon');
-                setTimeout(function() {
+                setTimeout(function () {
                     $('h2').html('Trainer <span id="compPoke">' + opponent.name + '</span> has been defeated!');
                     $('#buttonHolder').after('<button id="playAgain">Play Again?</button>');
-                }, 2000);  
+                }, 2000);
             }
         }, 2000);
 
@@ -423,13 +425,12 @@ var containerClone = $('.container')[0].outerHTML;
             if (activePlayerPoke.hp <= 0) {
                 $('#buttonHolder').append('<button id="confirmDead">Confirm</button>');
                 $('#confirmDead').attr('disabled', true);
-            }
-            else {
+            } else {
                 $('#buttonHolder').append('<button id="confirm">Confirm</button>');
                 $('#buttonHolder').append('<button id="cancel">Cancel</button>');
                 $('#confirm').attr('disabled', true);
             }
-            
+
             //if pokemon fainted, disable button
             if (player.pokemon[0].hp <= 0) {
                 $('#firstPoke').attr('disabled', true);
@@ -441,7 +442,7 @@ var containerClone = $('.container')[0].outerHTML;
                 $('#thirdPoke').attr('disabled', true);
             }
             if (activePlayerPoke.name === $('#firstPoke').text()) {
-                $('#firstPoke').attr('disabled', true);      
+                $('#firstPoke').attr('disabled', true);
             }
 
             if (activePlayerPoke.name === $('#secondPoke').text()) {
@@ -451,9 +452,7 @@ var containerClone = $('.container')[0].outerHTML;
             if (activePlayerPoke.name === $('#thirdPoke').text()) {
                 $('#thirdPoke').attr('disabled', true);
             }
-        } 
-        
-        else {
+        } else {
             $('h2').html(player.name + ' is out of usable Pokémon!');
             setTimeout(function () {
                 $('h2').html(player.name + ' blacked out!');
@@ -477,20 +476,19 @@ var containerClone = $('.container')[0].outerHTML;
     }
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EVENTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EVENTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     audio.play();
 
     //toggle audio
-    $(document).on('click', '#volume', function() {
+    $(document).on('click', '#volume', function () {
         if (playing === true) {
             audio.volume = 0;
             win.volume = 0;
             $('#volume').attr('class', 'fas fa-volume-off');
             playing = false;
-        }
-        else {
+        } else {
             audio.volume = 0.2;
             win.volume = 0.7;
             $('#volume').attr('class', 'fas fa-volume-up');
@@ -531,7 +529,7 @@ var containerClone = $('.container')[0].outerHTML;
     })
 
     // Choose Again button
-    $(document).on('click', '#resetButton', function() {
+    $(document).on('click', '#resetButton', function () {
         $('h2').html('Choose your <span id=\'trainer\'>trainer</span>');
         $(playerCard).css({
             'background-color': 'white'
@@ -583,8 +581,7 @@ var containerClone = $('.container')[0].outerHTML;
             $('.container').after('<div class="battleArena"></div>');
             if (playing) {
                 $('h1').html('BATTLE! <span id="volume" class="fas fa-volume-up"></span>');
-            }
-            else {
+            } else {
                 $('h1').html('BATTLE! <span id="volume" class="fas fa-volume-off"></span>');
             }
             $('h1').css('font-size', '3em');
@@ -648,33 +645,33 @@ var containerClone = $('.container')[0].outerHTML;
     });
 
     //CHOOSE NEXT POKEMON
-    $(document).on('click', '#switch', function() {
+    $(document).on('click', '#switch', function () {
         changePokemon();
     });
 
-// $('#playerPokeImg').attr('src', activePlayerPoke.img);
-// $('#playerhp').html('HP: ' + activePlayerPoke.hp);
-// $('#confirm, #confirmDead').attr('disabled', false);
-    
+    // $('#playerPokeImg').attr('src', activePlayerPoke.img);
+    // $('#playerhp').html('HP: ' + activePlayerPoke.hp);
+    // $('#confirm, #confirmDead').attr('disabled', false);
 
-    $(document).on('click', '#confirm', function() {
+
+    $(document).on('click', '#confirm', function () {
         $('#firstPoke').remove();
         $('#secondPoke').remove();
         $('#thirdPoke').remove();
         $('#confirm').remove();
         $('#cancel').remove();
         $('h2').html('That\'s enough <span id="playerPoke">' + activePlayerPoke.name + '</span>, come back!')
-        setTimeout(function() {
+        setTimeout(function () {
             activePlayerPoke = selectedPoke;
-            $('h2').html(player.name + ' sends out <span id="playerPoke">' + activePlayerPoke.name + '</span>!');   
+            $('h2').html(player.name + ' sends out <span id="playerPoke">' + activePlayerPoke.name + '</span>!');
             $('#playerPokeImg').attr('src', activePlayerPoke.img);
-            $('#playerhp').html('HP: ' + activePlayerPoke.hp);         
+            $('#playerhp').html('HP: ' + activePlayerPoke.hp);
         }, 2000)
 
-        setTimeout(function() {
+        setTimeout(function () {
             opponentAttack();
         }, 4000);
-        setTimeout(function() {
+        setTimeout(function () {
             $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
             $('#buttonHolder').append('<button id="attack">Attack</button>');
             $('#buttonHolder').append('<button id="switch">Change Pokémon</button>');
@@ -682,17 +679,17 @@ var containerClone = $('.container')[0].outerHTML;
         }, 8000);
     })
 
-    $(document).on('click', '#confirmDead', function() {
+    $(document).on('click', '#confirmDead', function () {
         $('#firstPoke').remove();
         $('#secondPoke').remove();
         $('#thirdPoke').remove();
         $('#confirmDead').remove();
         $('#cancel').remove();
         activePlayerPoke = selectedPoke;
-        $('h2').html(player.name + ' sends out <span id="playerPoke">' + activePlayerPoke.name + '</span>!');   
+        $('h2').html(player.name + ' sends out <span id="playerPoke">' + activePlayerPoke.name + '</span>!');
         $('#playerPokeImg').attr('src', activePlayerPoke.img);
-        $('#playerhp').html('HP: ' + activePlayerPoke.hp);         
-        setTimeout(function() {
+        $('#playerhp').html('HP: ' + activePlayerPoke.hp);
+        setTimeout(function () {
             $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
             $('#buttonHolder').append('<button id="attack">Attack</button>');
             $('#buttonHolder').append('<button id="switch">Change Pokémon</button>');
@@ -701,21 +698,21 @@ var containerClone = $('.container')[0].outerHTML;
     })
 
     //cancel pokemon change
-    $(document).on('click', '#cancel', function() {
+    $(document).on('click', '#cancel', function () {
         $('#firstPoke').remove();
         $('#secondPoke').remove();
         $('#thirdPoke').remove();
         $('#confirmDead').remove();
         $('#confirm').remove();
-        $('#cancel').remove();   
+        $('#cancel').remove();
         $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
         $('#buttonHolder').append('<button id="attack">Attack</button>');
         $('#buttonHolder').append('<button id="switch">Change Pokémon</button>');
-        $('#buttonHolder').append('<button id="giveUp">Run</button>');     
+        $('#buttonHolder').append('<button id="giveUp">Run</button>');
     });
 
     // choose first pokemon
-    $(document).on('click', '#firstPoke', function() {
+    $(document).on('click', '#firstPoke', function () {
         $(this).addClass('activated');
         $('#secondPoke').removeClass('activated');
         $('#thirdPoke').removeClass('activated');
@@ -723,7 +720,7 @@ var containerClone = $('.container')[0].outerHTML;
         $('#confirm, #confirmDead').attr('disabled', false);
     });
     //choose second pokemon
-    $(document).on('click', '#secondPoke', function() {
+    $(document).on('click', '#secondPoke', function () {
         $(this).addClass('activated');
         $('#firstPoke').removeClass('activated');
         $('#thirdPoke').removeClass('activated');
@@ -731,7 +728,7 @@ var containerClone = $('.container')[0].outerHTML;
         $('#confirm, #confirmDead').attr('disabled', false);
     });
     //choose third pokemon
-    $(document).on('click', '#thirdPoke', function() {
+    $(document).on('click', '#thirdPoke', function () {
         $(this).addClass('activated');
         $('#firstPoke').removeClass('activated');
         $('#secondPoke').removeClass('activated');
@@ -740,8 +737,7 @@ var containerClone = $('.container')[0].outerHTML;
     });
 
     //play again button
-    $(document).on('click', '#playAgain', function() {
+    $(document).on('click', '#playAgain', function () {
         reset();
     })
 });
-

@@ -3,7 +3,8 @@
     height: 150px;
 }
 
-ul, charList {
+ul,
+charList {
     list-style: none;
     padding-left: 0;
 }
@@ -23,7 +24,7 @@ ul, charList {
 .container {
     text-align: center;
     min-width: 1063px;
-    margin: 0px auto;    
+    margin: 0px auto;
 }
 
 #battle {
@@ -37,7 +38,8 @@ body {
     font-size: 1.1em;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
@@ -62,7 +64,6 @@ h2 {
     border-left: 2px solid black;
     border-bottom: 2px solid black;
     width: inherit;
-
 }
 
 #trainer {
@@ -108,8 +109,8 @@ h2 {
 
 button {
     width: 100px;
-    height: 45px;   
-    font-size: 0.9em; 
+    height: 45px;
+    font-size: 0.9em;
 }
 
 #cancel {
@@ -119,7 +120,8 @@ button {
     margin-left: 5px;
 }
 
-#battleButton, #attack {
+#battleButton,
+#attack {
     float: left;
 }
 
@@ -131,13 +133,13 @@ button {
     float: left;
     position: relative;
     left: 10px;
-} 
+}
 
 #giveUp {
     float: left;
     position: relative;
     left: 20px;
-} 
+}
 
 .middleBtn {
     margin-left: 10px;
@@ -150,7 +152,8 @@ button {
     right: 190px;
 }
 
-#confirm, #confirmDead {
+#confirm,
+#confirmDead {
     position: relative;
     top: 20px;
     margin-right: 5px;
@@ -161,7 +164,7 @@ button {
     background-color: yellow;
 }
 
-#buttonHolder ~ div {
+#buttonHolder~div {
     width: 225px;
     margin: 0 auto;
 }
@@ -177,7 +180,8 @@ img {
     -webkit-user-drag: none;
 }
 
-#playerPokeImg, #computerImg {
+#playerPokeImg,
+#computerImg {
     margin-top: 85px;
     background-color: white;
     width: 175px;
