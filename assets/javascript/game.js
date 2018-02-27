@@ -503,7 +503,7 @@ $('document').ready(function () {
             $('button').remove();
             // move chosen characters to new div .battleArena and update h1
             $('.container').after('<div class="battleArena"></div>');
-            $('h1').html('BATTLE!');
+            $('h1').html('BATTLE! <span id="volume" class="fas fa-volume-up"></span>');
             $('h1').css('font-size', '3em');
             $('h1').animate({
                 opacity: '100'
@@ -607,7 +607,7 @@ $('document').ready(function () {
         $('#buttonHolder').append('<button id="firstPoke">' + player.pokemon[0].name + '</button>');
         $('#buttonHolder').append('<button id="secondPoke" class="middleBtn">' + player.pokemon[1].name + '</button>');
         $('#buttonHolder').append('<button id="thirdPoke">' + player.pokemon[2].name + '</button>');
-        $('#buttonHolder').after('<button id="confirm">Confirm</button>')
+        $('#buttonHolder').append('<button id="confirm">Confirm</button>')
         $('h2').html('What Pokémon will battle next?');
     });
 
