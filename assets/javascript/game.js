@@ -434,10 +434,12 @@ $('document').ready(function () {
         if (playing === true) {
             audio.pause();
             playing = false;
+            $('#volume').attr('class', 'fas fa-volume-off');
         }
         else {
             audio.play();
             playing = true;
+            $('#volume').attr('class', 'fas fa-volume-up');
         }
     });
 
