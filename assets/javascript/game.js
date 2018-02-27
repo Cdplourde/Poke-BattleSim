@@ -1,11 +1,6 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~VARIABLES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var player;
-var opponent;
-var playerPoke1;
-var playerPoke2;
-var playerPoke3;
 var compPoke1;
 var compPoke2;
 var compPoke3;
@@ -110,6 +105,9 @@ var trainer = [
         }]
     }
 ]
+//default players
+var player = trainer[0];
+var opponent = trainer[1];
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FUNCTIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,17 +159,6 @@ function setCharacters() {
 }
 
 //places player and computer pokemon objects to variables
-function setPokemon() {
-    //player pokemon
-    playerPoke1 = player.pokemon[0];
-    playerPoke2 = player.pokemon[1];
-    playerPoke3 = player.pokemon[2];
-    //computer pokemon
-    compPoke1 = opponent.pokemon[0];
-    compPoke2 = opponent.pokemon[1];
-    compPoke3 = opponent.pokemon[2];
-}
-
 function hoverOnCSS() {
     if (numChoice === 0) {
         // change card background and animate
@@ -234,7 +221,7 @@ function setPlayerActivePoke() {
 }
 
 function playerAttack() {
-    var origHP = activeOpponentPoke.hp;
+    var origHP = activeOpponentPoke.hp;   
     // not very effective
     if ((activePlayerPoke.type === activeOpponentPoke.type) ||
         (activePlayerPoke.type === 'fire' && activeOpponentPoke.type === 'water') ||
@@ -250,10 +237,16 @@ function playerAttack() {
             setTimeout(function () {
                 compFaint();
             }, 4000);
+            setTimeout(function() {
+                $('.damageTaken').remove();
+            }, 8000);
         } else {
             setTimeout(function () {
                 opponentAttack();
             }, 4000);
+            setTimeout(function() {
+                $('.damageTaken').remove();
+            }, 8000);
         }
     }
     // super effective
@@ -270,15 +263,23 @@ function playerAttack() {
             setTimeout(function () {
                 compFaint();
             }, 4000);
+            setTimeout(function() {
+                $('.damageTaken').remove();
+                $('#computerhp').html('HP: ' + activeOpponentPoke.hp);
+            }, 8050);
         } else {
             setTimeout(function () {
                 opponentAttack();
             }, 4000);
+            setTimeout(function() {
+                $('.damageTaken').remove();
+                $('#computerhp').html('HP: ' + activeOpponentPoke.hp);
+            }, 8050);
         }
     }
     // normal effectiveness. cannot happen in this game.
     else {}
-    $('#computerhp').html('HP: ' + activeOpponentPoke.hp + '<span style="color: #e51640"> (-' + (origHP - activeOpponentPoke.hp) + ')');
+    $('#computerhp').html('HP: ' + activeOpponentPoke.hp + '<span class="damageTaken" style="color: #e51640"> (-' + (origHP - activeOpponentPoke.hp) + ')');
 }
 
 function opponentAttack() {
@@ -289,7 +290,12 @@ function opponentAttack() {
         (activeOpponentPoke.type === 'water' && activePlayerPoke.type === 'grass') ||
         (activeOpponentPoke.type === 'grass' && activePlayerPoke.type === 'fire')) {
 
+        //player takes half damage
         activePlayerPoke.hp -= Math.ceil(activeOpponentPoke.attack / 2);
+        //don't allow negative
+        if (activePlayerPoke.hp < 0) {
+            activePlayerPoke.hp = 0;
+        }
         $('h2').html('The opposing <span id="compPoke">' + activeOpponentPoke.name + '</span> attacks!');
         setTimeout(function () {
             $('h2').html('It\'s not very effective...');
@@ -311,7 +317,12 @@ function opponentAttack() {
         (activeOpponentPoke.type === 'water' && activePlayerPoke.type === 'fire') ||
         (activeOpponentPoke.type === 'grass' && activePlayerPoke.type === 'water')) {
 
+        //player takes double damage
         activePlayerPoke.hp -= (activeOpponentPoke.attack * 2);
+        //dopn't allow negative
+        if (activePlayerPoke.hp < 0) {
+            activePlayerPoke.hp = 0;
+        }
         //check if fainted
         $('h2').html('The opposing <span id="compPoke">' + activeOpponentPoke.name + '</span> attacks!');
         setTimeout(function () {
@@ -322,6 +333,7 @@ function opponentAttack() {
             setTimeout(function () {
                 activeFaint();
             }, 4000);
+        //if not fainted, continue with battle
         } else {
             setTimeout(function () {
                 $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
@@ -331,23 +343,27 @@ function opponentAttack() {
     }
     // normal effectiveness. cannot happen in this game
     else {}
-    $('#playerhp').html('HP: ' + activePlayerPoke.hp + '<span style="color: #e51640"> (-' + (origHP - activePlayerPoke.hp) + ')');
+    $('#playerhp').html('HP: ' + activePlayerPoke.hp + '<span class="damageTaken" style="color: #e51640"> (-' + (origHP - activePlayerPoke.hp) + ')');
 }
 
+//called when active pokemon hp reaches 0 or less, forces pokemon change
 function activeFaint() {
     disableButtons();
     $('h2').html('<span id="playerPoke">' + activePlayerPoke.name + '</span> fainted!');
     setTimeout(function () {
-        changePokemon(activePlayerPoke.hp);
+        changePokemon();
     }, 2000);
 }
 
+//called when computer pokemon hp reaches 0 or less. 
+// checks for win conditon then chooses a random pokemon to send out next
 function compFaint() {
     activeOpponentPoke.hp = 0;
     setTimeout(function () {
         $('h2').html('<span id="compPoke">' + activeOpponentPoke.name + '</span> fainted!')
     }, 2000);
     setTimeout(function () {
+        //send out new random pokemon
         if (alivePokemon.length != 1) {
             chooseRandomPokemon();
             $('h2').html(opponent.name + ' sends out ' + '<span id="compPoke"> ' + activeOpponentPoke.name + '</span>!');
@@ -356,6 +372,7 @@ function compFaint() {
                 $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
                 enableButtons();
             }, 2000);
+        //win condition
         } else {
             $('h2').html('Trainer <span id="compPoke">' + opponent.name + '</span> has been defeated!')
         }
@@ -363,17 +380,17 @@ function compFaint() {
 
 }
 
-function changePokemon(active) {
-    if ((playerPoke1.hp != 0) || (playerPoke2.hp != 0) || (playerPoke3.hp != 0)) {
+function changePokemon() {
+    if ((player.pokemon[0].hp != 0) || (player.pokemon[1].hp != 0) || (player.pokemon[2].hp != 0)) {
         $('h2').html('What Pokémon will battle next?');
         $('#attack').remove();
         $('#switch').remove();
         $('#giveUp').remove();
-        $('#buttonHolder').append('<button id="' + playerPoke1.name + '">' + playerPoke1.name + '</button>');
-        $('#buttonHolder').append('<button class="middleBtn" id="' + playerPoke2.name + '">' + playerPoke2.name + '</button>');
-        $('#buttonHolder').append('<button id="' + playerPoke3.name + '">' + playerPoke3.name + '</button>');
+        $('#buttonHolder').append('<button id="' + player.pokemon[0].name + '">' + player.pokemon[0].name + '</button>');
+        $('#buttonHolder').append('<button class="middleBtn" id="' + player.pokemon[1].name + '">' + player.pokemon[1].name + '</button>');
+        $('#buttonHolder').append('<button id="' + player.pokemon[2].name + '">' + player.pokemon[2].name + '</button>');
         //if pokemon fainted, disable button
-        if (active <= 0) {
+        if (activePlayerPoke.hp <= 0) {
             $('#' + activePlayerPoke.name).attr('disabled', true);
         }
     } else {
@@ -402,6 +419,7 @@ function enableButtons() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PAGE SCRIPT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 $('document').ready(function () {
     var containerClone = $('.container')[0].outerHTML;
@@ -491,8 +509,7 @@ $('document').ready(function () {
             $(opponentCard).attr('id', 'computer')
             // set character and pokemon variables
             setCharacters();
-            setPokemon();
-            activePlayerPoke = playerPoke1;
+            activePlayerPoke = player.pokemon[0];
             chooseRandomPokemon();
             // create player pokemon image element
             $('.characters:first-of-type').append('<img id="playerPokeImg">');
@@ -500,7 +517,7 @@ $('document').ready(function () {
             $('#playerPokeImg').animate({
                 opacity: '100'
             }, 2000);
-            $('#playerPokeImg').attr('src', playerPoke1.img);
+            $('#playerPokeImg').attr('src', player.pokemon[0].img);
             // show hp
             $('#playerPokeImg').after('<p id="playerhp">HP: <span id="playerhpSpan">' + player.pokemon[0].hp + '</span></p>')
             // create computer pokemon image element
@@ -519,15 +536,16 @@ $('document').ready(function () {
         }, 300);
 
     });
-
+    //player clicks attack button
     $(document).on('click', '#attack', function () {
         disableButtons();
         playerAttack();
     });
-
+    //player clicks run button
     $(document).on('click', '#giveUp', function () {
         var input = confirm('Are you sure you want to leave this battle?')
         if (input === true) {
+            //fade out current elements
             $('.battleArena').animate({
                 opacity: '0'
             }, 300);
@@ -553,12 +571,7 @@ $('document').ready(function () {
             setTimeout(function () {
                 //reset numChoice and hp of pokemon
                 numChoice = 0;
-                playerPoke1.hp = 100;
-                playerPoke2.hp = 100;
-                playerPoke3.hp = 100;
-                compPoke1.hp = 100;
-                compPoke2.hp = 100;
-                compPoke3.hp = 100;
+                //reset all hp values in array to 100
                 //remove created elements
                 $('.battleArena').remove();
                 $('#attack').remove();
@@ -569,6 +582,54 @@ $('document').ready(function () {
                 $('.container').replaceWith(containerClone);
             }, 300);
         } else {}
+    });
+
+    //CHOOSE NEXT POKEMON
+    $(document).on('click', '#switch', function() {
+        $('#attack').remove();
+        $('#switch').remove();
+        $('#giveUp').remove();
+        $('#buttonHolder').append('<button id="firstPoke">' + player.pokemon[0].name + '</button>');
+        $('#buttonHolder').append('<button id="secondPoke" class="middleBtn">' + player.pokemon[1].name + '</button>');
+        $('#buttonHolder').append('<button id="thirdPoke">' + player.pokemon[2].name + '</button>');
+        $('#buttonHolder').after('<button id="confirm">Confirm</button>')
+        $('h2').html('What Pokémon will battle next?');
+    });
+
+    $(document).on('click', '#confirm', function() {
+        $('#firstPoke').remove();
+        $('#secondPoke').remove();
+        $('#thirdPoke').remove();
+        $('#confirm').remove();
+        $('h2').html(player.name + ' sends out <span id="playerPoke">' + activePlayerPoke.name + '</span>');
+        setTimeout(function() {
+            opponentAttack();
+        }, 2000);
+        setTimeout(function() {
+            $('h2').html('What will <span id="playerPoke">' + activePlayerPoke.name + '</span> do?');
+            $('#buttonHolder').append('<button id="attack">Attack</button>');
+            $('#buttonHolder').append('<button id="switch">Change Pokémon</button>');
+            $('#buttonHolder').append('<button id="giveUp">Run</button>');
+        }, 6000);
+    })
+
+    //choose first pokemon
+    $(document).on('click', '#firstPoke', function() {
+        activePlayerPoke = player.pokemon[0];
+        $('#playerPokeImg').attr('src', activePlayerPoke.img);
+        $('#playerhp').html('HP: ' + activePlayerPoke.hp);            
+    });
+    //choose second pokemon
+    $(document).on('click', '#secondPoke', function() {
+        activePlayerPoke = player.pokemon[1];
+        $('#playerPokeImg').attr('src', activePlayerPoke.img);
+        $('#playerhp').html('HP: ' + activePlayerPoke.hp);
+    });
+    //choose third pokemon
+    $(document).on('click', '#thirdPoke', function() {
+        activePlayerPoke = player.pokemon[2];
+        $('#playerPokeImg').attr('src', activePlayerPoke.img);
+        $('#playerhp').html('HP: ' + activePlayerPoke.hp);
     });
 
 });

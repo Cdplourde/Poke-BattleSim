@@ -143,6 +143,12 @@ button {
     right: 190px;
 }
 
+#confirm {
+    position: relative;
+    left: 902px;
+    top: 10px;
+}
+
 
 #buttonHolder ~ div {
     width: 225px;
